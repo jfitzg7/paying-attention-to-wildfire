@@ -1,4 +1,4 @@
-# cs535-term-project - Wildfire Spread Prediction
+# Paying Attention to Wildfire: Using U-Net with Attention Blocks on Multimodal Data for Next Day Prediction
 
 The dataset we used in this project can be found here: [https://www.kaggle.com/datasets/fantineh/next-day-wildfire-spread](https://www.kaggle.com/datasets/fantineh/next-day-wildfire-spread)
 
