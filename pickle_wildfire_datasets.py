@@ -1,3 +1,4 @@
+import argparse
 import re
 from typing import Dict, List, Optional, Text, Tuple
 import pickle
@@ -338,10 +339,10 @@ def remove_bad_samples(dataset):
     return dataset[good_indices]
 
 
-def main():
+def main(dataset_path):
 
     train_dataset = get_dataset(
-        file_pattern='./archive/next_day_wildfire_spread_train*',
+        file_pattern=f'{dataset_path}/next_day_wildfire_spread_train*',
         data_size=64,
         sample_size=32,
         num_in_channels=12,
@@ -352,7 +353,7 @@ def main():
         center_crop=False)
 
     test_dataset = get_dataset(
-        file_pattern='./archive/next_day_wildfire_spread_test*',
+        file_pattern=f'{dataset_path}/next_day_wildfire_spread_test*',
         data_size=64,
         sample_size=32,
         num_in_channels=12,
@@ -363,7 +364,7 @@ def main():
         center_crop=False)
 
     validation_dataset = get_dataset(
-        file_pattern='./archive/next_day_wildfire_spread_eval*',
+        file_pattern=f'{dataset_path}/next_day_wildfire_spread_eval*',
         data_size=64,
         sample_size=32,
         num_in_channels=12,
@@ -409,4 +410,7 @@ def main():
     print("The numpy arrays were successfully pickled in ./data/next-day-wildfire-spread/")
 
 if __name__ == '__main__':
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-d', '--dataset', default='/data/next-day-wildfire-spread')
+    args = parser.parse_args()
+    main(args.dataset)
