@@ -339,39 +339,39 @@ def remove_bad_samples(dataset):
     return dataset[good_indices]
 
 
-def main(dataset_path):
+def main(dataset_path, input_size):
 
     train_dataset = get_dataset(
         file_pattern=f'{dataset_path}/next_day_wildfire_spread_train*',
-        data_size=64,
+        data_size=input_size,
         sample_size=32,
         num_in_channels=12,
         compression_type=None,
         clip_and_normalize=True,
         clip_and_rescale=False,
-        random_crop=True,
+        random_crop=False,
         center_crop=False)
 
     test_dataset = get_dataset(
         file_pattern=f'{dataset_path}/next_day_wildfire_spread_test*',
-        data_size=64,
+        data_size=input_size,
         sample_size=32,
         num_in_channels=12,
         compression_type=None,
         clip_and_normalize=True,
         clip_and_rescale=False,
-        random_crop=True,
+        random_crop=False,
         center_crop=False)
 
     validation_dataset = get_dataset(
         file_pattern=f'{dataset_path}/next_day_wildfire_spread_eval*',
-        data_size=64,
+        data_size=input_size,
         sample_size=32,
         num_in_channels=12,
         compression_type=None,
         clip_and_normalize=True,
         clip_and_rescale=False,
-        random_crop=True,
+        random_crop=False,
         center_crop=False)
 
     print("Sucessfully created the tensorflow datasets!")
@@ -411,6 +411,9 @@ def main(dataset_path):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('-d', '--dataset', default='/data/next-day-wildfire-spread')
+    parser.add_argument('-d', '--dataset', default='/data/next-day-wildfire-spread',
+            help='the path to the next day wildfire spread dataset (with no trailing forward slash)')
+    parser.add_argument('-s', '--input_size', type=int, default=64,
+            help='the size of the input features (e.g. 64x64 if 64 is passed in)')
     args = parser.parse_args()
-    main(args.dataset)
+    main(args.dataset, args.input_size)
